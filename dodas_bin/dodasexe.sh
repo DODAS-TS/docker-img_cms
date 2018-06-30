@@ -17,14 +17,14 @@ while true; do
             echo "Actually a timeout occurred"
         fi
         echo "shutdown the docker"
-        shutdown -h now
+        exit 1
     fi
     if [ "$COUNTER" == "120" ];then
         COUNTER=0
         cmd=$(find /var/log/condor -type f -name StartLog -mmin -$WN_TIMEOUT)
         if [ -z $cmd ]; then
             echo "shutdwon the docker"
-            shutdown -h now
+            exit 1
         fi
     fi
     let COUNTER=COUNTER+1
