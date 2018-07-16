@@ -28,3 +28,38 @@ OSG_SINGULARITY_VERSION="2.4.2-dist"
 STARTD_ATTRS = $(STARTD_ATTRS) GLIDEIN_REQUIRED_OS HAS_Singularity OSG_SINGULARITY_VERSION OSG_SINGULARITY_PATH OSG_SINGULARITY_IMAGE_DEFAULT
 
 USER_JOB_WRAPPER=/usr/local/libexec/singularity_wrapper.sh
+
+#
+# Tell the master to wait a real long time before restarting the startd,
+# since when the startd exits we don't want to restart it, we want to go
+# away.
+#
+MASTER_BACKOFF_CONSTANT = 999999
+
+#
+# Set CLAIM_WORKLIFE to one second.  This tells the startd to go back
+# to Unclaimed/Idle state after any job that runs for more than one
+# second completes.
+#
+CLAIM_WORKLIFE = 1
+
+#
+# Modify Start expression so we will not accept a second job after
+# the first one completes and the startd goes back to Idle.
+#
+START = (TotalTimeClaimedBusy =?= UNDEFINED || \\
+         TotalTimeClaimedBusy =?= 0 ) \\
+         &&  ( $(START) )
+
+#
+# Shutdown startd if we are currently idle and have ever been busy
+# in the past.
+#
+STARTD.DAEMON_SHUTDOWN = (Activity=="Idle") && \
+   ((TotalTimeClaimedBusy =!= UNDEFINED) && (TotalTimeClaimedBusy > 0))
+
+#
+# Shutdown the master if the startd exits.  Note that if
+# STARTD_StartTime is zero, that the startd is not currently running.
+#
+MASTER.DAEMON_SHUTDOWN = (STARTD_StartTime =?= 0)

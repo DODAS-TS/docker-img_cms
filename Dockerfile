@@ -33,6 +33,10 @@ WORKDIR /root
 RUN wget https://gitlab.cern.ch/CMSSI/CMSglideinWMSValidation/raw/master/singularity_validation.sh \
     && wget https://gitlab.cern.ch/CMSSI/CMSglideinWMSValidation/raw/master/singularity_wrapper.sh -O /usr/local/libexec/singularity_wrapper.sh
 
+RUN pip install pymesos
+COPY executor.py .
+COPY process.py /usr/local/lib/python2.7/site-packages/pymesos/process.py
+
 RUN chmod +x /usr/local/bin/dodasexe_pre.sh \
     && chmod +x /usr/local/bin/dodasexe.sh \
     && chmod +x /usr/local/bin/dodas.sh \
