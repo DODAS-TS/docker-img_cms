@@ -10,7 +10,20 @@ from pymesos import MesosExecutorDriver, Executor, decode_data
 from addict import Dict
 
 
-class MinimalExecutor(Executor):
+class HTcondorDriver(MesosExecutorDriver):
+    def reserve_storage(self):
+        body = dict(
+            type='MESSAGE',
+            executor_id=self.executor_id,
+            framework_id=self.framework_id,
+            message=dict(
+                data=[],
+            ),
+        )
+        self._send(body)
+
+
+class HTCondorExcutor(Executor):
     def launchTask(self, driver, task):
         def run_task(task):
             update = Dict()
@@ -43,5 +56,5 @@ class MinimalExecutor(Executor):
 if __name__ == '__main__':
     import logging
     logging.basicConfig(level=logging.DEBUG)
-    driver = MesosExecutorDriver(MinimalExecutor(), use_addict=True, timeout=1)
+    driver = HTcondorDriver(HTCondorExcutor(), use_addict=True)
     driver.run()
