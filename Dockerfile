@@ -37,7 +37,7 @@ RUN yum install -y gcc python-devel
 RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && python get-pip.py
 RUN pip install pymesos
 COPY executor.py .
-COPY process.py /usr/local/lib/python2.7/site-packages/pymesos/process.py
+COPY process.py /usr/lib/python2.7/site-packages/pymesos/process.py
 
 RUN chmod +x /usr/local/bin/dodasexe_pre.sh \
     && chmod +x /usr/local/bin/dodasexe.sh \
