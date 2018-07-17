@@ -33,7 +33,7 @@ WORKDIR /root
 RUN wget https://gitlab.cern.ch/CMSSI/CMSglideinWMSValidation/raw/master/singularity_validation.sh \
     && wget https://gitlab.cern.ch/CMSSI/CMSglideinWMSValidation/raw/master/singularity_wrapper.sh -O /usr/local/libexec/singularity_wrapper.sh
 
-RUN yum install -y gcc
+RUN yum install -y gcc python-devel
 RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && python get-pip.py
 RUN pip install pymesos
 COPY executor.py .
