@@ -56,5 +56,5 @@ class HTCondorExcutor(Executor):
 if __name__ == '__main__':
     import logging
     logging.basicConfig(level=logging.DEBUG)
-    driver = HTcondorDriver(HTCondorExcutor(), use_addict=True)
+    driver = HTcondorDriver(HTCondorExcutor(), use_addict=True, timeout=1)
     driver.run()

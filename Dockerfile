@@ -33,6 +33,7 @@ WORKDIR /root
 RUN wget https://gitlab.cern.ch/CMSSI/CMSglideinWMSValidation/raw/master/singularity_validation.sh \
     && wget https://gitlab.cern.ch/CMSSI/CMSglideinWMSValidation/raw/master/singularity_wrapper.sh -O /usr/local/libexec/singularity_wrapper.sh
 
+RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && python get-pip.py
 RUN pip install pymesos
 COPY executor.py .
 COPY process.py /usr/local/lib/python2.7/site-packages/pymesos/process.py
