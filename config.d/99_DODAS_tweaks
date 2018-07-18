@@ -7,9 +7,9 @@ GSI_DAEMON_NAME=$(GSI_DAEMON_NAME),/DC=ch/DC=cern/OU=computers/CN=vocms0806.cern
 GSI_DAEMON_NAME=$(GSI_DAEMON_NAME),/DC=org/DC=opensciencegrid/O=Open Science Grid/OU=Services/CN=cmssrv258.fnal.gov
 
 # in case of HA setup, use:
-COLLECTOR_HOST=cmsgwms-collector-global.cern.ch:COLLECTOR_PORT,cmssrv221.fnal.gov:COLLECTOR_PORT
+COLLECTOR_HOST=cmsgwms-collector-global.cern.ch:COLLECTOR_PORT
 COLLECTOR_HOST1=$(COLLECTOR_HOST)
-CCB_ADDRESS=cmsgwms-ccb-global.cern.ch:CCB_PORT,cmssrv258.fnal.gov:CCB_PORT
+CCB_ADDRESS=cmsgwms-ccb-global.cern.ch:CCB_PORT
 
 MUST_MODIFY_REQUEST_EXPRS = False
 Requirements = START
