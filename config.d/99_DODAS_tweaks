@@ -47,8 +47,8 @@ CLAIM_WORKLIFE = 1
 # Modify Start expression so we will not accept a second job after
 # the first one completes and the startd goes back to Idle.
 #
-START = (TotalTimeClaimedBusy =?= UNDEFINED || \\
-         TotalTimeClaimedBusy =?= 0 ) \\
+START = (TotalTimeClaimedBusy =?= UNDEFINED || \
+         TotalTimeClaimedBusy =?= 0 ) \
          &&  ( $(START) )
 
 #
