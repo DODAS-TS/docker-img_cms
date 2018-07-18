@@ -2,6 +2,7 @@
 from __future__ import print_function
 
 import sys
+import os
 import time
 from threading import Thread
 from subprocess import check_call, CalledProcessError
@@ -31,10 +32,12 @@ class HTCondorExcutor(Executor):
             update.state = 'TASK_RUNNING'
             update.timestamp = time.time()
             driver.sendStatusUpdate(update)
-
+ 
+            env = {}
+            env.update(os.environ)
             # /usr/local/bin/dodas.sh
             try:
-                startd = check_call("/usr/local/bin/dodas.sh", shell=True)
+                startd = check_call("/usr/local/bin/dodas.sh", shell=True, env=env)
                 print(startd)
             except CalledProcessError:
                 update = Dict()
