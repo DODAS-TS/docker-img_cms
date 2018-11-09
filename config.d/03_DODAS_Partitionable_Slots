@@ -2,4 +2,4 @@ NUM_CPUS                  = $(DETECTED_CORES)
 NUM_SLOTS                 = 1
 NUM_SLOTS_TYPE_1          = 1
 SLOT_TYPE_1               = 100%
-SLOT_TYPE_1_PARTITIONABLE = False
+SLOT_TYPE_1_PARTITIONABLE = True
