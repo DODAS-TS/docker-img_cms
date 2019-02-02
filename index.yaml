@@ -1,0 +1,13 @@
+apiVersion: v1
+entries:
+  dodas_cms:
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: 2019-02-02T11:20:39.101312886+01:00
+    description: A Helm chart for the deployment of a DODAS CMS cluster
+    digest: 6d7fab383527abf8a4992398f100d89e799f72bdd51aa3264de795131ee3bf59
+    name: dodas_cms
+    urls:
+    - https://dodas-ts.github.io/docker-img_cms/dodas_cms-0.1.0.tgz
+    version: 0.1.0
+generated: 2019-02-02T11:20:39.100827075+01:00
