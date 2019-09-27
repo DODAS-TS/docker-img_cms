@@ -8,8 +8,7 @@ LABEL Version=1.0
 WORKDIR /etc/yum.repos.d
 
 RUN useradd -ms /bin/bash condor \
-    && wget http://research.cs.wisc.edu/htcondor/yum/repo.d/htcondor-development-rhel7.repo \
-    && wget http://research.cs.wisc.edu/htcondor/yum/repo.d/htcondor-stable-rhel7.repo \
+    && wget https://research.cs.wisc.edu/htcondor/yum/repo.d/htcondor-previous-rhel7.repo \ 
     && wget http://research.cs.wisc.edu/htcondor/yum/RPM-GPG-KEY-HTCondor \
     && rpm --import RPM-GPG-KEY-HTCondor \
     && wget -O onedata.repo http://packages.onedata.org/yum/onedata_centos_7x.repo \
