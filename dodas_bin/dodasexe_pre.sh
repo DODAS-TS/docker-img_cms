@@ -12,12 +12,12 @@ if [ $? -ne 0 ]; then
     exit 9
 fi
 
-yum -y install ca-policy-egi-core
-yum -y install ca-policy-lcg
-/usr/sbin/fetch-crl -q
+# yum -y install ca-policy-egi-core
+# yum -y install ca-policy-lcg
+# /usr/sbin/fetch-crl -q
 
-wget -O /etc/yum.repos.d/ca_CMS-TTS-CA.repo https://ci.cloud.cnaf.infn.it/job/cnaf-mw-devel-jobs/job/ca_CMS-TTS-CA/job/master/lastSuccessfulBuild/artifact/ca_CMS-TTS-CA.repo
-yum -y install ca_CMS-TTS-CA
+# wget -O /etc/yum.repos.d/ca_CMS-TTS-CA.repo https://ci.cloud.cnaf.infn.it/job/cnaf-mw-devel-jobs/job/ca_CMS-TTS-CA/job/master/lastSuccessfulBuild/artifact/ca_CMS-TTS-CA.repo
+# yum -y install ca_CMS-TTS-CA
 
 resp=0
 until [  $resp -eq 200 ]; do
@@ -30,7 +30,7 @@ done
 chmod 600 /root/gwms_proxy
 
 export X509_USER_PROXY=/root/gwms_proxy
-export X509_CERT_DIR=/etc/grid-security/certificates
+export X509_CERT_DIR=/cvmfs/grid.cern.ch/etc/grid-security/certificates/
 grid-proxy-info
 
 GATKEEPER=$CMS_LOCAL_SITE:8443
@@ -45,8 +45,17 @@ if [ $? -eq 0 ]; then
     sed -i -e "s/$str2/GLIDEIN_CMSSite = \"$CMS_LOCAL_SITE\"/g" /etc/condor/config.d/99_DODAS_local
     str3=$(grep "GLIDEIN_Gatekeeper =" /etc/condor/config.d/99_DODAS_local)
     sed -i -e "s/$str3/GLIDEIN_Gatekeeper = \"$GATKEEPER\"/g" /etc/condor/config.d/99_DODAS_local
+
+    if [[ -z "${MARATHON_APP_RESOURCE_CPUS}" ]]; then
+      NUM_CPUS="${MARATHON_APP_RESOURCE_CPUS}"
+    elif [[ -z "${DETECTED_CORES}" ]]; then
+      NUM_CPUS="${DETECTED_CORES}"
+    else
+      NUM_CPUS="1"
+    fi
+
     str4=$(grep "NUM_CPUS" /etc/condor/config.d/03_DODAS_Partitionable_Slots)
-    sed -i -e "s/$str4/NUM_CPUS = ${MARATHON_APP_RESOURCE_CPUS%.*}/g" /etc/condor/config.d/03_DODAS_Partitionable_Slots
+    sed -i -e "s/$str4/NUM_CPUS = ${NUM_CPUS%.*}/g" /etc/condor/config.d/03_DODAS_Partitionable_Slots
 
 
     COLLECTOR_PORT=`shuf -i 9621-9720 -n 1`

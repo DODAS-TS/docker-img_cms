@@ -19,7 +19,7 @@ GLIDEIN_REQUIRED_OS = "any"
 # Indicates that the startd has singularity
 HAS_Singularity=True
 # Indicates what the default singularity image should be (= CMS RHEL6 image)
-OSG_SINGULARITY_IMAGE_DEFAULT="/cvmfs/singularity.opensciencegrid.org/bbockelm/cms:rhel6"
+OSG_SINGULARITY_IMAGE_DEFAULT="/cvmfs/singularity.opensciencegrid.org/opensciencegrid/osgvo-el6:latest"
 # Indicates where to find the singularity binary
 OSG_SINGULARITY_PATH="/usr/bin/singularity"
 # Indicates the version of singularity
