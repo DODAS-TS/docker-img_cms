@@ -46,9 +46,9 @@ if [ $? -eq 0 ]; then
     str3=$(grep "GLIDEIN_Gatekeeper =" /etc/condor/config.d/99_DODAS_local)
     sed -i -e "s/$str3/GLIDEIN_Gatekeeper = \"$GATKEEPER\"/g" /etc/condor/config.d/99_DODAS_local
 
-    if [[ -z "${MARATHON_APP_RESOURCE_CPUS}" ]]; then
+    if ! [[ -z "${MARATHON_APP_RESOURCE_CPUS}" ]]; then
       NUM_CPUS="${MARATHON_APP_RESOURCE_CPUS}"
-    elif [[ -z "${DETECTED_CORES}" ]]; then
+    elif ! [[ -z "${DETECTED_CORES}" ]]; then
       NUM_CPUS="${DETECTED_CORES}"
     else
       NUM_CPUS="1"
