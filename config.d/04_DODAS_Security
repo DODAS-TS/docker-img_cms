@@ -20,7 +20,7 @@ GSI_DAEMON_NAME=$(GSI_DAEMON_NAME),/DC=ch/DC=cern/OU=computers/CN=cmspilot02/voc
 # FNAL frontend details (as HA)
 GSI_DAEMON_NAME=$(GSI_DAEMON_NAME),/DC=com/DC=DigiCert-Grid/O=Open Science Grid/OU=Services/CN=cmsgwms-frontend.fnal.gov
 GSI_DAEMON_NAME=$(GSI_DAEMON_NAME),/DC=com/DC=DigiCert-Grid/O=Open Science Grid/OU=Services/CN=pilot/cmsgwms-frontend.fnal.gov
-GSI_DAEMON_TRUSTED_CA_DIR = /etc/grid-security/certificates
+GSI_DAEMON_TRUSTED_CA_DIR = /cvmfs/grid.cern.ch/etc/grid-security/certificates
 ## HLT admins expressed interest in using a host cert baked into the VM image
 #GSI_DAEMON_CERT           = /etc/grid-security/certificates/hostcert.pem
 ## Tier 0 admins wanted to use a proxy baked into the VM image
