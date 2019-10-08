@@ -61,7 +61,7 @@ if [ $? -eq 0 ]; then
     COLLECTOR_PORT=`shuf -i 9621-9720 -n 1`
     sed -i -e "s/COLLECTOR_PORT/${COLLECTOR_PORT}/g" /etc/condor/config.d/99_DODAS_tweaks
 
-    CCB_PORT=`shuf -i 9619-9720 -n 1`
+    CCB_PORT=`shuf -i 9621-9720 -n 1`
     sed -i -e "s/CCB_PORT/${CCB_PORT}/g" /etc/condor/config.d/99_DODAS_tweaks
 
     export PATH=$PATH:/usr/libexec/condor
