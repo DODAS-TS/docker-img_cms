@@ -1,42 +1,21 @@
 FROM dodasts/centos:7-grid
-LABEL maintainer="mirco.tracolli@pg.infn.it"
 LABEL Version=1.0
 
-# HTCondor
-# https://get.onedata.org/oneclient.sh 
+RUN useradd -ms /bin/bash condor 
 
-WORKDIR /etc/yum.repos.d
+WORKDIR /home/condor
 
-RUN useradd -ms /bin/bash condor \
-    && wget https://research.cs.wisc.edu/htcondor/yum/repo.d/htcondor-previous-rhel7.repo \ 
-    && wget http://research.cs.wisc.edu/htcondor/yum/RPM-GPG-KEY-HTCondor \
-    && rpm --import RPM-GPG-KEY-HTCondor \
-    && wget -O onedata.repo http://packages.onedata.org/yum/onedata_centos_7x.repo \
-    && yum --setopt=tsflags=nodocs -y update \
-    && yum --setopt=tsflags=nodocs -y install condor-all-8.6.5  \
-    && yum clean all \
-    && ln -s /usr/lib64/condor /usr/lib/condor \
-    && ln -s /usr/libexec/condor /usr/lib/condor/libexec
+RUN wget https://raw.githubusercontent.com/glideinWMS/glideinwms/master/creation/web_base/glidein_startup.sh \
+    && https://gist.githubusercontent.com/spigad/8e3a394392811a86bef6020cb7f1ab7e/raw/060f13ff82a3efbc0b53e3be148a1569696887b7/dodas-glidein_startup_wrapper3
 
-COPY condorconfig/* /etc/condor/
-COPY config.d/* /etc/condor/config.d/
-COPY dodas_bin/*  /usr/local/bin/
-RUN mkdir -p /etc/condor/certs \
-    && mkdir -p /etc/cvmfs/SITECONF \
-    && cp /etc/condor/config.d/condor_mapfile /etc/condor/certs/condor_mapfile \
-    && rm /etc/condor/config.d/condor_mapfile 
+RUN mkdir -p runjob \
+    && mkdir -p /etc/cvmfs/SITECONF 
 
-WORKDIR /root
+COPY dodas_bin/dodas.sh /usr/local/bin/
 
-# Download validation script
-RUN wget https://gitlab.cern.ch/CMSSI/CMSglideinWMSValidation/raw/master/singularity_validation.sh \
-    && wget https://gitlab.cern.ch/CMSSI/CMSglideinWMSValidation/raw/master/singularity_wrapper.sh -O /usr/local/libexec/singularity_wrapper.sh
-
-RUN chmod +x /usr/local/bin/dodasexe_pre.sh \
-    && chmod +x /usr/local/bin/dodasexe.sh \
-    && chmod +x /usr/local/bin/dodas.sh \
-    && chmod +x /usr/local/libexec/singularity_wrapper.sh \
-    && chmod 0755 /usr/local/libexec/singularity_wrapper.sh \
-    && chown condor:condor /usr/local/libexec/singularity_wrapper.sh \
-    # onedata directories needed by mount
-    && mkdir -p /mnt/onedata/ /var/log/dodas
+RUN chown condor:condor glidein_startup.sh \
+    && chown condor:condor dodas-glidein_startup_wrapper3 \
+    && chown condor:condor runjob \
+    && chmod +x glidein_startup.sh \
+    && chmod +x glidein_startup_wrapper \
+    && chmod +x /usr/local/bin/dodas.sh 
