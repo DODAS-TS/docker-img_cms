@@ -11,7 +11,7 @@ RUN wget https://raw.githubusercontent.com/glideinWMS/glideinwms/master/creation
 RUN mkdir -p runjob \
     && mkdir -p /etc/cvmfs/SITECONF 
 
-COPY dodas_bin/dodas.sh /usr/local/bin/
+COPY dodas.sh /usr/local/bin/
 
 RUN chown condor:condor glidein_startup.sh \
     && chown condor:condor dodas-glidein_startup_wrapper3 \
