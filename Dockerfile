@@ -17,5 +17,5 @@ RUN chown condor:condor glidein_startup.sh \
     && chown condor:condor dodas-glidein_startup_wrapper3 \
     && chown condor:condor runjob \
     && chmod +x glidein_startup.sh \
-    && chmod +x glidein_startup_wrapper \
+    && chmod +x dodas-glidein_startup_wrapper3 \
     && chmod +x /usr/local/bin/dodas.sh 
